@@ -1,0 +1,16 @@
+name: old_navigation
+
+version_control:
+    - bundles/old_navigation: 
+        dfkigit: rdominguez/old_navigation
+        branch: stable
+    - bundles/old_navigation/models/orogen/nav_planner:
+        dfkigit: rdominguez/nav_planner-deployment
+        branch: master
+                     
+                     
+                     
+                     
+                     
+                     
+                     

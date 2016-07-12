@@ -1,0 +1,3 @@
+bundle_package 'bundles/old_navigation' do |pkg|
+        Autoproj.env_add_path 'RUBYLIB', File.join(pkg.srcdir, "scripts")
+end
