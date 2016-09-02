@@ -7,10 +7,9 @@ version_control:
     - bundles/old_navigation/models/orogen/nav_planner:
         dfkigit: rdominguez/nav_planner-deployment
         branch: master
-                     
-                     
-                     
-                     
-                     
-                     
-                     
+    - entern/orogen/internal_simulator:
+        type: git
+        url: $SPACEGIT_ROOT/rdominguez/orogen-$PACKAGE_BASENAME.git
+        push_to: $SPACEGIT_PUSH_ROOT/rdominguez/orogen-$PACKAGE_BASENAME.git
+        branch: master
+

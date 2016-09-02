@@ -1,5 +1,6 @@
 if package_enabled?('orogen')
     orogen_package 'bundles/old_navigation/models/orogen/nav_planner'
+    orogen_package 'entern/orogen/internal_simulator'
 else
     Autoproj.warn "oroGen is not enabled, skipping the oroGen packages"
 end
