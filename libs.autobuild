@@ -1,3 +1,14 @@
 bundle_package 'bundles/old_navigation' do |pkg|
         Autoproj.env_add_path 'RUBYLIB', File.join(pkg.srcdir, "scripts")
 end
+
+cmake_package "learning/libcmaes" do |pkg|
+    pkg.depends_on 'autoconf'
+    pkg.depends_on 'automake'
+    pkg.depends_on 'libtool'
+    pkg.depends_on 'libgoogle-glog-dev'
+    pkg.depends_on 'libgflags-dev'
+    pkg.depends_on 'libeigen3-dev'
+end
+
+

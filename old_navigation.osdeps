@@ -1,0 +1,12 @@
+libeigen3-dev:
+    debian, ubuntu: libeigen3-dev
+libgflags-dev:
+    debian, ubuntu: libgflags-dev
+libgoogle-glog-dev:
+    debian, ubuntu: libgoogle-glog-dev
+autoconf:
+    debian, ubuntu: autoconf
+automake:
+    debian, ubuntu: automake
+libtool:
+    debian, ubuntu: libtool

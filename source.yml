@@ -12,4 +12,5 @@ version_control:
         url: $SPACEGIT_ROOT/rdominguez/orogen-$PACKAGE_BASENAME.git
         push_to: $SPACEGIT_PUSH_ROOT/rdominguez/orogen-$PACKAGE_BASENAME.git
         branch: master
-
+    - learning/libcmaes:
+      github: beniz/libcmaes
