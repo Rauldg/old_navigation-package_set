@@ -9,6 +9,34 @@ cmake_package "learning/libcmaes" do |pkg|
     pkg.depends_on 'libgoogle-glog-dev'
     pkg.depends_on 'libgflags-dev'
     pkg.depends_on 'libeigen3-dev'
+
+
+    def pkg.prepare
+        super
+
+        task "#{name}-build" => buildstamp
+        file installstamp => buildstamp
+
+
+        in_dir("#{srcdir}") do
+            run("configure01", "./autogen.sh")
+            run("configure02", "./configure", "--prefix=#{Autobuild.prefix}", "--includedir=#{Autobuild.prefix}/include/libcmaes")
+        end
+    end
+
+    def pkg.build
+        in_dir("#{srcdir}") do
+            run("build", Autobuild.tool(:make))
+        end
+    end
+
+    def pkg.install
+        in_dir("#{srcdir}") do
+            run("install", Autobuild.tool(:make), "install")
+        end
+    end
+        
+
 end
 
 
