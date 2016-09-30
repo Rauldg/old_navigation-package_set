@@ -29,6 +29,7 @@ import_package "learning/libcmaes" do |pkg|
 
 
         in_dir("#{srcdir}") do
+            run("autogen", "./autogen.sh")
 
             run("configure", "./configure", "--prefix=#{Autobuild.prefix}", "--includedir=#{Autobuild.prefix}/include/libcmaes")
         end
