@@ -13,4 +13,11 @@ version_control:
         push_to: $SPACEGIT_PUSH_ROOT/rdominguez/orogen-$PACKAGE_BASENAME.git
         branch: master
     - learning/libcmaes:
-      github: beniz/libcmaes
+        github: beniz/libcmaes
+    - learning/nlopt:
+        type: archive
+        url: http://ab-initio.mit.edu/nlopt/nlopt-2.4.2.tar.gz
+        update_cached_file: false
+        archive_dir: nlopt-2.4.2
+        #github: stevengj/nlopt
+        #tag: nlopt-2.4.2

@@ -10,3 +10,26 @@ automake:
     debian, ubuntu: automake
 libtool:
     debian, ubuntu: libtool
+boost:
+    debian,ubuntu:
+        - libboost-dev
+        - libboost-graph-dev
+        - libboost-program-options-dev
+        - libboost-regex-dev
+        - libboost-thread-dev
+        - libboost-filesystem-dev
+        - libboost-iostreams-dev
+        - libboost-system-dev
+    gentoo: dev-libs/boost
+    fedora,opensuse: boost-devel
+    darwin: boost
+    arch,manjarolinux:
+        - boost
+        - boost-libs
+libtbb:
+    debian, ubuntu:
+        - libtbb-dev
+        - libtbb-doc
+        - libtbb2
+        - libtbb2-dbg
+

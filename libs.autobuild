@@ -30,7 +30,6 @@ import_package "learning/libcmaes" do |pkg|
 
         in_dir("#{srcdir}") do
             run("autogen", "./autogen.sh")
-
             run("configure", "./configure", "--prefix=#{Autobuild.prefix}", "--includedir=#{Autobuild.prefix}/include/libcmaes")
         end
     end
@@ -71,3 +70,42 @@ import_package "learning/libcmaes" do |pkg|
     end
 
 end
+
+import_package "learning/nlopt" do |pkg|
+
+    def pkg.buildstamp; "autobuild-stamp" end
+
+    def pkg.prepare
+        super
+
+        stamps = dependencies.map { |pkg2| Autobuild::Package[pkg2].installstamp }
+
+        file buildstamp => stamps do
+            isolate_errors do
+                build
+                progress_done
+            end
+        end
+
+        task "#{name}-build" => buildstamp
+        file installstamp => buildstamp
+
+
+        in_dir("#{srcdir}") do
+            run("configure", "./configure", "--prefix=#{Autobuild.prefix}", "--includedir=#{Autobuild.prefix}/include/nlopt")
+        end
+    end
+
+    def pkg.build
+        in_dir("#{srcdir}") do
+            run("build", Autobuild.tool(:make))
+        end
+    end
+
+    def pkg.install
+        in_dir("#{srcdir}") do
+            run("install", Autobuild.tool(:make), "install")
+        end
+    end
+end
+
