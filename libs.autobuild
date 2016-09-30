@@ -92,7 +92,7 @@ import_package "learning/nlopt" do |pkg|
 
 
         in_dir("#{srcdir}") do
-            run("configure", "./configure", "--prefix=#{Autobuild.prefix}", "--includedir=#{Autobuild.prefix}/include/nlopt")
+            run("configure", "./configure", "--prefix=#{Autobuild.prefix}", "--includedir=#{Autobuild.prefix}/include/nlopt --with-cxx --enable-shared --without-python --without-matlab --without-octave")
         end
     end
 
