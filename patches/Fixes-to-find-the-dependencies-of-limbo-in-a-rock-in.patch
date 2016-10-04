@@ -1,0 +1,39 @@
+diff --git a/waf_tools/libcmaes.py b/waf_tools/libcmaes.py
+index 5d2e298..8134b75 100644
+--- ./waf_tools/libcmaes.py
++++ ./waf_tools/libcmaes.py
+@@ -62,7 +62,7 @@ def options(opt):
+ @conf
+ def check_libcmaes(conf):
+ 	if conf.options.libcmaes:
+-		includes_check = [conf.options.libcmaes + '/include']
++		includes_check = [conf.options.libcmaes + '/include', conf.options.libcmaes + '/include/libcmaes']
+ 		libs_check = [conf.options.libcmaes + '/lib']
+ 	else:
+ 		includes_check = ['/usr/local/include', '/usr/include']
+diff --git ./waf_tools/nlopt.py b/waf_tools/nlopt.py
+index 2ca8145..5f412f4 100644
+--- ./waf_tools/nlopt.py
++++ ./waf_tools/nlopt.py
+@@ -62,7 +62,7 @@ def options(opt):
+ @conf
+ def check_nlopt(conf):
+ 	if conf.options.nlopt:
+-		includes_check = [conf.options.nlopt + '/include']
++		includes_check = [conf.options.nlopt + '/include', conf.options.nlopt + '/include/nlopt']
+ 		libs_check = [conf.options.nlopt + '/lib']
+ 	else:
+ 		includes_check = ['/usr/local/include', '/usr/include']
+diff --git ./waf_tools/sferes.py ./waf_tools/sferes.py
+index 9fc514b..c6d8195 100644
+--- ./waf_tools/sferes.py
++++ ./waf_tools/sferes.py
+@@ -62,7 +62,7 @@ def options(opt):
+ def check_sferes(self, *k, **kw):
+     if self.options.sferes:
+         includes_sferes = [self.options.sferes]
+-        libpath_sferes = [self.options.sferes + '/build/sferes']
++        libpath_sferes = [self.options.sferes + '/../lib/sferes']
+     else:
+         return
+ 

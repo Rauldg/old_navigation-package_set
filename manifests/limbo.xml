@@ -1,0 +1,12 @@
+<package>
+    <description brief="Framework for Bayesian optimization of black-box functions">
+A lightweight framework for Bayesian optimization of black-box functions (C++11) and, more generally, for data-efficient optimization. It is designed to be very fast and very flexible.
+    </description>
+    <author>Antoine Cully</author>
+    <license></license>
+    <url>https://github.com/resibots/limbo</url>
+    <depend name="learning/libcmaes"/>
+    <rosdep name="learning/sferes2"/>
+    <rosdep name="learning/nlopt"/>
+</package>
+
