@@ -14,6 +14,7 @@ boost:
     debian,ubuntu:
         - libboost-dev
         - libboost-graph-dev
+        - libboost-graph-parallel-dev
         - libboost-program-options-dev
         - libboost-regex-dev
         - libboost-thread-dev
@@ -32,4 +33,12 @@ libtbb:
         - libtbb-doc
         - libtbb2
         - libtbb2-dbg
-
+python:
+    debian, ubuntu:
+        - python
+python-simplejson:
+    debian, ubuntu:
+        - python-simplejson
+google-perform:
+    debian, ubuntu:
+        - libgoogle-perftools-dev

@@ -21,3 +21,9 @@ version_control:
         archive_dir: nlopt-2.4.2
         #github: stevengj/nlopt
         #tag: nlopt-2.4.2
+    - learning/sferes2:
+        github: sferes2/sferes2
+        branch: master
+    - learning/limbo:
+        github: resibots/limbo
+        branch: master

@@ -109,3 +109,30 @@ import_package "learning/nlopt" do |pkg|
     end
 end
 
+import_package "learning/sferes2" do |pkg|
+    pkg.depends_on 'boost'
+    pkg.depends_on 'libtbb'
+    pkg.depends_on 'python'
+    pkg.depends_on 'python-simplejson'
+    pkg.depends_on 'google-perform'
+    pkg.depends_on 'libeigen3-dev'
+
+    def pkg.buildstamp; "autobuild-stamp" end
+
+    def pkg.prepare
+        super
+
+        stamps = dependencies.map { |pkg2| Autobuild::Package[pkg2].installstamp }
+
+        file buildstamp => stamps do
+            isolate_errors do
+                build
+                progress_done
+            end
+        end
+
+        task "#{name}-build" => buildstamp
+        file installstamp => buildstamp
+
+    end
+end
