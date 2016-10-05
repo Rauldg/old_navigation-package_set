@@ -1,0 +1,17 @@
+diff --git a/manifest.xml b/manifest.xml
+new file mode 100644
+index 0000000..a2710ce
+--- /dev/null
++++ ./manifest.xml
+@@ -0,0 +1,9 @@
++<package>
++    <description brief="Library for nonlinear local and global optimization">
++NLopt is a library for nonlinear local and global optimization, for functions with and without gradient information. It is designed as as simple, unified interface and packaging of several free/open-source nonlinear optimization libraries.
++    </description>
++    <author>Steven G. Johnson</author>
++    <license></license>
++    <url>https://github.com/beniz/libcmaes</url>
++</package>
++
+-- 
+1.9.1

@@ -183,9 +183,6 @@ end
 
 
 import_package "learning/limbo" do |pkg|
-    #pkg.depends_on 'learning/nlopt'
-    #pkg.depends_on 'learning/libcmaes'
-    #pkg.depends_on 'learning/sferes2'
 
     def pkg.buildstamp; "autobuild-stamp" end
 

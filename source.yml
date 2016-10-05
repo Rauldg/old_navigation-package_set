@@ -14,17 +14,22 @@ version_control:
         branch: master
     - learning/libcmaes:
         github: beniz/libcmaes
+        patches: $AUTOPROJ_SOURCE_DIR/patches/Libcmaes-manifest.patch
     - learning/nlopt:
         type: archive
         url: http://ab-initio.mit.edu/nlopt/nlopt-2.4.2.tar.gz
         update_cached_file: false
         archive_dir: nlopt-2.4.2
+        patches: $AUTOPROJ_SOURCE_DIR/patches/Nlopt-manifest.patch
         #github: stevengj/nlopt
         #tag: nlopt-2.4.2
     - learning/sferes2:
         github: sferes2/sferes2
         branch: master
+        patches: $AUTOPROJ_SOURCE_DIR/patches/Sferes-manifest.patch
     - learning/limbo:
         github: resibots/limbo
         branch: master
-        patches: $AUTOPROJ_SOURCE_DIR/patches/Fixes-to-find-the-dependencies-of-limbo-in-a-rock-in.patch
+        patches: 
+            - $AUTOPROJ_SOURCE_DIR/patches/Fixes-to-find-the-dependencies-of-limbo-in-a-rock-in.patch
+            - $AUTOPROJ_SOURCE_DIR/patches/Limbo-Added-manifest.patch
