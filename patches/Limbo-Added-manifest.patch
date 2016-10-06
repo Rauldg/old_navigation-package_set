@@ -12,8 +12,8 @@ index 0000000..6b25c21
 +    <license></license>
 +    <url>https://github.com/resibots/limbo</url>
 +    <depend name="learning/libcmaes"/>
-+    <rosdep name="learning/sferes2"/>
-+    <rosdep name="learning/nlopt"/>
++    <depend name="learning/sferes2"/>
++    <depend name="learning/nlopt"/>
 +</package>
 +
 -- 

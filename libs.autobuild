@@ -1,22 +1,41 @@
+# old_navigation packages
+
+# Add a bundle package and create in it a "scripts" directory
 bundle_package 'bundles/old_navigation' do |pkg|
         Autoproj.env_add_path 'RUBYLIB', File.join(pkg.srcdir, "scripts")
 end
 
-import_package "learning/libcmaes" do |pkg|
-    pkg.depends_on 'autoconf'
-    pkg.depends_on 'automake'
-    pkg.depends_on 'libtool'
-    pkg.depends_on 'libgoogle-glog-dev'
-    pkg.depends_on 'libgflags-dev'
-    pkg.depends_on 'libeigen3-dev'
+# Declaration of how the package "learning/libcmaes" should be configured,
+# built and installed
 
+import_package "learning/libcmaes" do |pkg|
+    # My package depends on these tools, but I am not sure if the dependencies
+    # should be declared here and in the manifest or just in the manifest.xml
+    # pkg.depends_on 'autoconf'
+    # pkg.depends_on 'automake'
+    # pkg.depends_on 'libtool'
+    # pkg.depends_on 'libgoogle-glog-dev'
+    # pkg.depends_on 'libgflags-dev'
+    # pkg.depends_on 'libeigen3-dev'   
+
+    # Not sure what this is for... Triggers an error when the building is
+    # triggered by a depending library (e.g. limbo)
+    #
+    # The error that occurs is:
+    # /home/dfki.uni-bremen.de/rdominguez/Entern/launcher/.gems/gems/autobuild-1.9.5/lib/autobuild/parallel.rb:227:in
+    # `invoke_parallel': cycle in task graph:
+    # /home/dfki.uni-bremen.de/rdominguez/Entern/launcher/install/log/learning/libcmaes-autobuild-stamp,
+    # autobuild-stamp (RuntimeError)
     def pkg.buildstamp; "autobuild-stamp" end
+    
     
     def pkg.prepare
         super
-
+        
+        # What is happening here? 
         stamps = dependencies.map { |pkg2| Autobuild::Package[pkg2].installstamp }
 
+        # What is happening here? 
         file buildstamp => stamps do
             isolate_errors do
                 build
@@ -24,50 +43,64 @@ import_package "learning/libcmaes" do |pkg|
             end
         end
 
+        # What is happening here? 
         task "#{name}-build" => buildstamp
         file installstamp => buildstamp
 
+        # These are the commands that I want to run to configure the library for
+        # the building.
+        # I want to run them from the root folder of the library.
         in_dir("#{srcdir}") do
-            run("debug", "echo 'FOO' >> note.txt")
+            # The output will be stored in a file with appendix the first
+            # string of the following command. In this case "autogen".
+            # The second and posterior parameters define the command to execute 
+            # for the configuration
             run("autogen", "./autogen.sh")
-            run("configure", "./configure", "--prefix=#{Autobuild.prefix}", "--includedir=#{Autobuild.prefix}/include")
+            run("configure", "./configure", "--prefix=#{Autobuild.prefix}", 
+            "--includedir=#{Autobuild.prefix}/include")
         end
     end
 
     def pkg.build
+        # These are the commands that I want to run to build the library.
+        # I want to run them from the root folder of the library.
         in_dir("#{srcdir}") do
             run("build", Autobuild.tool(:make))
         end
     end
 
     def pkg.install
+        # These are the commands that I want to run to install the library.
+        # I want to run them from the root folder of the library.
         in_dir("#{srcdir}") do
             run("install", Autobuild.tool(:make), "install")
         end
     end
 
-    if pkg.respond_to?(:progress_start) # newer versions of autoproj
-        pkg.post_install do
-            pkg.progress_start "building %s" do
-                pkg.do_build
-            end
-            pkg.progress_start "installing %s" do
-                pkg.do_install
-            end
-            pkg.progress_start "generating pkgconfig file for %s" do
-                pkg.do_pkgconfig
-            end
-        end
-    else
-        pkg.post_install do
-            pkg.progress "building %s"
-            pkg.do_build
-            pkg.progress "installing %s"
-            pkg.do_install
-            pkg.progress "generating pkgconfig file for %s"
-            pkg.do_pkgconfig
-        end
-    end
+    # I am not sure of why this is done... Leaving it out does not solve the
+    # 'invoke parallel' problem 
+   if pkg.respond_to?(:progress_start) # newer versions of autoproj
+       pkg.post_install do
+           pkg.progress_start "building %s" do
+               pkg.do_build
+           end
+           pkg.progress_start "installing %s" do
+               pkg.do_install
+           end
+           pkg.progress_start "generating pkgconfig file for %s" do
+               pkg.do_pkgconfig
+           end
+       end
+   else
+       pkg.post_install do
+           pkg.progress "building %s"
+           pkg.do_build
+           pkg.progress "installing %s"
+           pkg.do_install
+           pkg.progress "generating pkgconfig file for %s"
+           pkg.do_pkgconfig
+       end
+   end
 
 end
 
@@ -92,7 +125,10 @@ import_package "learning/nlopt" do |pkg|
 
 
         in_dir("#{srcdir}") do
-            run("configure", "./configure", "--prefix=#{Autobuild.prefix}", "--includedir=#{Autobuild.prefix}/include/nlopt", "--with-cxx", "--enable-shared", "--without-python",  "--without-matlab", "--without-octave")
+            run("configure", "./configure", "--prefix=#{Autobuild.prefix}", 
+            "--includedir=#{Autobuild.prefix}/include/nlopt", "--with-cxx", 
+            "--enable-shared", "--without-python",  "--without-matlab", 
+            "--without-octave")
         end
     end
 
@@ -136,16 +172,17 @@ import_package "learning/sferes2" do |pkg|
 
         in_dir("#{srcdir}") do
             run("configure", "./waf", "configure")
-            run("rock-configure", "./waf","configure", "--prefix=#{Autobuild.prefix}", "--out=#{Autobuild.prefix}/lib")
+            run("rock-configure", "./waf","configure", 
+            "--prefix=#{Autobuild.prefix}", "--out=#{Autobuild.prefix}/lib")
         end
     end
 
     def pkg.build
         in_dir("#{srcdir}") do
             run("build", "./waf","build")
-            #run("cp-headers", "find", ".", "-name", "'*.h*'", "-exec", "cp", "--parents", "\{\}" , "#{Autobuild.prefix}/include", "\\\;" )
             in_dir("#{srcdir}/sferes") do
-                run("cp-headers", "find . -name '*.h*' | cpio -pdm #{Autobuild.prefix}/include/sferes")
+                run("cp-headers", 
+                "find . -name '*.h*' | cpio -pdm #{Autobuild.prefix}/include/sferes")
             end
         end
     end
@@ -203,7 +240,11 @@ import_package "learning/limbo" do |pkg|
 
         in_dir("#{srcdir}") do
             run("configure", "./waf", "configure")
-            run("rock-configure", "./waf","configure", "--prefix=#{Autobuild.prefix}", "--out=#{Autobuild.prefix}/lib/limbo", "--libcmaes=#{Autobuild.prefix}", "--nlopt=#{Autobuild.prefix}", "--sferes=#{Autobuild.prefix}/include")
+            run("rock-configure", "./waf","configure", 
+            "--prefix=#{Autobuild.prefix}", 
+            "--out=#{Autobuild.prefix}/lib/limbo", 
+            "--libcmaes=#{Autobuild.prefix}", "--nlopt=#{Autobuild.prefix}", 
+            "--sferes=#{Autobuild.prefix}/include")
         end
     end
 
@@ -211,7 +252,8 @@ import_package "learning/limbo" do |pkg|
         in_dir("#{srcdir}") do
             run("build", "./waf","build")
             in_dir("#{srcdir}/src") do
-                run("cp-headers", "find . -name '*.h*' | cpio -pdm #{Autobuild.prefix}/include/limbo")
+                run("cp-headers", 
+                "find . -name '*.h*' | cpio -pdm #{Autobuild.prefix}/include/limbo")
             end
         end
     end
