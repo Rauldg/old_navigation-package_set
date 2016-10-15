@@ -6,6 +6,7 @@ bundle_package 'bundles/old_navigation' do |pkg|
 end
 
 import_package 'learning/maps'
+import_package 'learning/performance_map'
 
 
 # Declaration of how the package "learning/libcmaes" should be configured,

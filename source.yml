@@ -32,3 +32,6 @@ version_control:
     - learning/maps:
         github: Rauldg/maps
         branch: master
+    - learning/performance_map:
+        github: Rauldg/performance_map
+        branch: master
