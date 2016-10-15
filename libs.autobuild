@@ -5,6 +5,9 @@ bundle_package 'bundles/old_navigation' do |pkg|
         Autoproj.env_add_path 'RUBYLIB', File.join(pkg.srcdir, "scripts")
 end
 
+import_package 'learning/maps'
+
+
 # Declaration of how the package "learning/libcmaes" should be configured,
 # built and installed
 import_package "learning/libcmaes" do |pkg|

@@ -29,3 +29,6 @@ version_control:
         branch: master
         patches: 
             - $AUTOPROJ_SOURCE_DIR/patches/Fixes-to-find-the-dependencies-of-limbo-in-a-rock-in.patch
+    - learning/maps:
+        github: Rauldg/maps
+        branch: master
